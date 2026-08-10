@@ -4,9 +4,9 @@ A full **Tracker.gg-style Valorant stats dashboard** in a single HTML file — n
 
 > ⚠️ **Private project.** Not affiliated with Riot Games. Personal stats tool.
 
-![Version](https://img.shields.io/badge/version-1.0-f2b363) ![Status](https://img.shields.io/badge/status-live-ff4655) ![Type](https://img.shields.io/badge/app-single--file-00c3ff)
+![Version](https://img.shields.io/badge/version-1.2-f2b363) ![Status](https://img.shields.io/badge/status-live-ff4655) ![Type](https://img.shields.io/badge/app-single--file-00c3ff)
 
-> 🏷️ **v1.0 “FOUNDATION”** — first public release. See [CHANGELOG.md](CHANGELOG.md) for what's in + the v1.1+ roadmap.
+> 🏷️ **v1.2 “MOMENTUM”** *(work in progress)* — Road-To tracker, Session Diary, match grades, tilt detector, bottom thumb-nav, More sheet, pro SVG icons, back-to-top, quick-jump links. See [CHANGELOG.md](CHANGELOG.md).
 
 ---
 

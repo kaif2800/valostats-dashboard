@@ -555,6 +555,125 @@ footer b{color:var(--muted)}
   .load-equip span{font-size:7.5px}
   .filters input{min-width:140px}
 }
+/* ============ v1.2 GRADES ============ */
+.mg{display:inline-block;font-family:var(--mono);font-weight:800;font-size:9px;letter-spacing:1.5px;
+  padding:1px 7px;margin-top:4px;border:1px solid;line-height:1.5}
+.mg.s{color:#ffd98a;border-color:rgba(255,217,138,.55);background:rgba(255,217,138,.09);text-shadow:0 0 8px rgba(255,217,138,.7)}
+.mg.a{color:var(--win);border-color:rgba(43,217,163,.5);background:rgba(43,217,163,.08)}
+.mg.b{color:var(--blue);border-color:rgba(90,169,255,.5);background:rgba(90,169,255,.08)}
+.mg.c{color:#9badbf;border-color:rgba(155,173,191,.45);background:rgba(155,173,191,.07)}
+.mg.d{color:var(--loss);border-color:rgba(255,89,100,.5);background:rgba(255,89,100,.08)}
+/* ============ v1.2 ROAD TO ============ */
+.road-card{background:linear-gradient(150deg,#1b2b3d,#101b27 70%);position:relative;overflow:hidden}
+.road-wrap{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.road-ranks{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.road-ranks img{filter:drop-shadow(0 4px 12px rgba(0,0,0,.6))}
+.road-cur{width:44px}
+.road-nxt{width:64px;animation:rankPulse 3s ease-in-out infinite}
+.road-arrow{color:var(--gold);font-weight:800;font-size:16px}
+.road-main{flex:1;min-width:200px}
+.road-title{font-size:11px;letter-spacing:2.5px;color:var(--muted);font-weight:800;text-transform:uppercase}
+.road-big{font-family:var(--mono);font-weight:800;font-size:26px;margin:2px 0 8px}
+.road-big small{font-size:12px;color:var(--muted)}
+.road-track{height:12px;background:rgba(255,255,255,.08);overflow:hidden}
+.road-fill{height:100%;width:0;transition:width 1.4s cubic-bezier(.2,.8,.2,1);
+  background:linear-gradient(90deg,var(--gold),#ffd98a);position:relative;overflow:hidden}
+.road-fill::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.32),transparent);animation:shimmer 2.2s infinite}
+@keyframes shimmer{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+.road-meta{margin-top:8px;font-size:10.5px;color:var(--muted);letter-spacing:.6px;font-family:var(--mono)}
+.road-chip{flex-shrink:0;text-align:right;min-width:130px}
+.road-alert{font-family:var(--mono);font-size:10px;letter-spacing:1.5px;padding:3px 10px;border:1px solid;display:inline-block}
+.road-alert.hot{color:#ffb26b;border-color:rgba(255,178,107,.5);background:rgba(255,178,107,.08);animation:hotPulse 1.6s infinite}
+.road-alert.guard{color:var(--loss);border-color:rgba(255,89,100,.5);background:rgba(255,89,100,.08);animation:hotPulse 1.6s infinite}
+.road-alert.chill{color:var(--blue);border-color:rgba(90,169,255,.4);background:rgba(90,169,255,.06)}
+@keyframes hotPulse{0%,100%{box-shadow:0 0 0 rgba(255,178,107,0)}50%{box-shadow:0 0 14px rgba(255,178,107,.35)}}
+/* ============ v1.2 FORM BANNER ============ */
+.form-banner{display:flex;align-items:center;gap:12px;padding:10px 14px;margin-bottom:14px;
+  font-size:12px;letter-spacing:.6px;border:1px solid}
+.form-banner.hot{border-color:rgba(43,217,163,.45);background:rgba(43,217,163,.07);color:#c8f5e5}
+.form-banner.tilt{border-color:rgba(255,89,100,.5);background:rgba(255,89,100,.07);color:#ffd4d9}
+.fb-ico{font-size:18px}
+.form-strip-card{margin-bottom:14px}
+/* ============ v1.2 SESSIONS ============ */
+.ses-card{border:1px solid var(--line);background:var(--card);padding:14px 16px;margin-bottom:12px}
+.ses-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.ses-day{font-weight:800;letter-spacing:1.6px;font-size:14px;text-transform:uppercase}
+.ses-tag{font-size:8.5px;font-weight:800;letter-spacing:1.4px;padding:2px 7px;background:rgba(255,70,85,.14);
+  color:var(--red);border:1px solid rgba(255,70,85,.4)}
+.ses-games{font-size:10px;color:var(--muted);letter-spacing:1.4px}
+.ses-rr{margin-left:auto;font-family:var(--mono);font-weight:800;font-size:13px}
+.ses-stats{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.ses-stat{font-family:var(--mono);font-size:13.5px;font-weight:700}
+.ses-stat small{display:block;font-size:8.5px;color:var(--muted);font-family:var(--font);letter-spacing:1.2px;font-weight:600}
+.ses-wl{font-size:24px;font-weight:800;font-family:var(--mono)}
+.ses-rows{border-top:1px solid rgba(255,255,255,.06);padding-top:8px}
+.ses-row{display:flex;align-items:center;gap:10px;padding:5px 0;font-size:11.5px}
+.ses-row .s-map{font-weight:700;letter-spacing:.8px;min-width:0}
+.ses-row .s-sub{color:var(--muted);font-family:var(--mono);font-size:10px}
+.ses-row .s-score{margin-left:auto;font-family:var(--mono);font-weight:800}
+.ses-row .lr-ic{width:26px;height:26px;padding:0;overflow:hidden;flex-shrink:0}
+.ses-row .mg{margin-top:0}
+@media(max-width:560px){
+  .road-big{font-size:20px}
+  .road-nxt{width:52px}.road-cur{width:36px}
+  .road-chip{text-align:left;min-width:0}
+  .ses-stats{gap:10px}
+  .ses-wl{font-size:19px}
+  .form-banner{font-size:11px}
+}
+/* ============ EASY MODE UX (preview pack) ============ */
+#bnav{display:none}
+@media(max-width:1099px){
+  #nav{display:none}
+  #bnav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:70;
+    background:rgba(10,16,24,.93);backdrop-filter:blur(12px);border-top:1px solid var(--line);
+    padding:6px 4px calc(6px + env(safe-area-inset-bottom));justify-content:space-around}
+  .bnav-item{flex:1;background:none;border:none;color:var(--muted);font-family:var(--font);
+    font-size:9px;letter-spacing:1px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;
+    padding:6px 0;cursor:pointer;border-top:2px solid transparent;transition:color .15s}
+  .bnav-item .bni{line-height:1;transition:transform .18s}
+  .bnav-item.active{color:var(--txt);border-top-color:var(--red)}
+  .bnav-item.active .bni{transform:translateY(-1px)}
+  #content{padding-bottom:106px!important}
+}
+.bni svg{width:19px;height:19px;display:block}
+.ni-ico{margin-right:8px;display:inline-flex}
+.ni-ico svg{width:13px;height:13px;display:block}
+.mt-ico svg{width:21px;height:21px;display:block}
+.jc-ico{display:inline-flex;margin-right:7px}
+.jc-ico svg{width:12px;height:12px;display:block}
+#moreMenu{position:fixed;inset:0;z-index:80;background:rgba(6,10,15,.84);backdrop-filter:blur(8px);
+  display:none;align-items:flex-end;justify-content:center}
+#moreMenu.open{display:flex}
+.more-panel{width:100%;max-width:560px;max-height:78vh;overflow-y:auto;
+  background:linear-gradient(165deg,#182636,#0f1720);border:1px solid var(--line);border-bottom:none;
+  border-radius:14px 14px 0 0;padding:18px 16px 26px;animation:sheetUp .28s cubic-bezier(.2,.9,.25,1)}
+@keyframes sheetUp{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+.more-h{display:flex;align-items:center;justify-content:space-between;font-size:11px;font-weight:800;
+  letter-spacing:2.4px;color:var(--muted);margin-bottom:14px;text-transform:uppercase}
+#moreClose{background:rgba(255,255,255,.06);border:1px solid var(--line);color:var(--txt);width:30px;height:30px;
+  font-size:13px;cursor:pointer;border-radius:6px;font-family:var(--font)}
+.more-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.more-tile{background:rgba(255,255,255,.035);border:1px solid var(--line);color:var(--txt);cursor:pointer;
+  padding:14px 8px;display:flex;flex-direction:column;align-items:center;gap:7px;font-family:var(--font);
+  font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;transition:all .15s;border-radius:8px}
+.more-tile:hover{background:rgba(255,70,85,.1);border-color:rgba(255,70,85,.4)}
+.more-tile.on{border-color:var(--red);background:rgba(255,70,85,.09)}
+.more-tile .mt-ico{display:inline-flex}
+@media(min-width:1100px){#moreMenu{align-items:center}.more-panel{border-radius:12px;border-bottom:1px solid var(--line)}}
+#toTop{position:fixed;right:16px;bottom:18px;z-index:65;width:42px;height:42px;border-radius:10px;
+  background:linear-gradient(165deg,#223449,#141f2c);border:1px solid var(--line);color:var(--gold);
+  cursor:pointer;opacity:0;pointer-events:none;transform:translateY(10px);transition:all .25s;font-family:var(--font);
+  display:flex;align-items:center;justify-content:center}
+#toTop svg{width:16px;height:16px}
+#toTop.show{opacity:1;pointer-events:auto;transform:none}
+@media(max-width:1099px){#toTop{bottom:88px}}
+.jump-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.jump-chip{background:rgba(255,255,255,.045);border:1px solid var(--line);color:var(--txt);cursor:pointer;
+  padding:9px 13px;font-family:var(--font);font-size:10.5px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;transition:all .15s}
+.jump-chip:hover{border-color:var(--red);color:#fff;background:rgba(255,70,85,.1);transform:translateY(-1px)}
 /* ============ GLOBAL ANTI-OVERLAP HARDENING ============ */
 .card{min-width:0}
 .grid>*{min-width:0}
@@ -588,11 +707,12 @@ img{max-width:100%}
       <button class="nav-item" data-tab="skins"><span class="ni-num">08</span>Skins</button>
       <button class="nav-item" data-tab="assistant"><span class="ni-num">09</span>Assistant</button>
       <button class="nav-item" data-tab="leaderboard"><span class="ni-num">10</span>Leaderboard</button>
+      <button class="nav-item" data-tab="sessions"><span class="ni-num">11</span>Sessions</button>
     </nav>
     <div class="side-foot">
       <div><span class="dot"></span>TRACKING ACTIVE</div>
       <div style="margin-top:6px">SEASON 2026 // ACT V</div>
-      <div style="margin-top:6px;color:var(--gold);letter-spacing:1.5px">BUILD v1.0 · FOUNDATION</div>
+      <div style="margin-top:6px;color:var(--gold);letter-spacing:1.5px">BUILD v1.2 · MOMENTUM</div>
     </div>
   </aside>
 
@@ -632,6 +752,8 @@ img{max-width:100%}
             <div class="chart-wrap"><canvas id="rankChart" style="height:190px"></canvas></div>
           </div>
         </div>
+        <div class="card road-card" id="roadCard" style="margin-bottom:16px"></div>
+
         <div class="grid g-stats" style="margin-bottom:16px" id="ovTiles"></div>
         <div class="card" style="margin-bottom:16px">
           <div class="card-h">Season Snapshot</div>
@@ -676,10 +798,21 @@ img{max-width:100%}
             <div class="chart-wrap"><canvas id="agentDonut" style="height:230px"></canvas></div>
           </div>
         </div>
+        <div class="card" style="margin-top:16px">
+          <div class="card-h">Quick Jump</div>
+          <div class="jump-chips">
+            <button class="jump-chip" data-goto="matches"><span class="jc-ico" data-ico="matches"></span>All Matches →</button>
+            <button class="jump-chip" data-goto="sessions"><span class="jc-ico" data-ico="sessions"></span>Session Diary →</button>
+            <button class="jump-chip" data-goto="weapons"><span class="jc-ico" data-ico="weapons"></span>My Weapons →</button>
+            <button class="jump-chip" data-goto="skins"><span class="jc-ico" data-ico="skins"></span>Open Armory →</button>
+            <button class="jump-chip" data-goto="assistant"><span class="jc-ico" data-ico="assistant"></span>Pre-Match Assistant →</button>
+          </div>
+        </div>
       </section>
 
       <!-- MATCHES -->
       <section class="tab-pane" id="tab-matches">
+        <div id="formStrip"></div>
         <div class="filters">
           <select id="fltResult">
             <option value="all">ALL RESULTS</option>
@@ -690,6 +823,12 @@ img{max-width:100%}
           <select id="fltAgent"><option value="all">ALL AGENTS</option></select>
         </div>
         <div id="matchList"></div>
+      </section>
+
+      <!-- SESSIONS -->
+      <section class="tab-pane" id="tab-sessions">
+        <div id="weekCard" class="card" style="margin-bottom:16px"></div>
+        <div id="sessionList"></div>
       </section>
 
       <!-- TEAM -->
@@ -802,7 +941,7 @@ img{max-width:100%}
     </main>
 
     <footer>
-      <b>VALOSTATS</b> <span style="font-family:var(--mono);font-size:10px;font-weight:800;color:var(--gold);border:1px solid rgba(242,179,99,.45);padding:2px 8px;letter-spacing:1.5px;vertical-align:1px">v1.0</span> // Unofficial stats dashboard. Currently running on <b>realistic simulated data</b> —
+      <b>VALOSTATS</b> <span style="font-family:var(--mono);font-size:10px;font-weight:800;color:var(--gold);border:1px solid rgba(242,179,99,.45);padding:2px 8px;letter-spacing:1.5px;vertical-align:1px">v1.2</span> // Unofficial stats dashboard. Currently running on <b>realistic simulated data</b> —
       real-time stats require a Riot Games API key (via the unofficial HenrikDev Valorant API), which this
       UI is pre-wired to accept. Not affiliated with Riot Games.
     </footer>
@@ -866,6 +1005,22 @@ img{max-width:100%}
     </div>
   </div>
 </div>
+
+<!-- EASY MODE: thumb nav, more sheet, back-to-top -->
+<nav id="bnav" aria-label="Quick navigation">
+  <button class="bnav-item active" data-btab="overview"><span class="bni" data-ico="overview"></span><span class="bnl">Home</span></button>
+  <button class="bnav-item" data-btab="matches"><span class="bni" data-ico="matches"></span><span class="bnl">Matches</span></button>
+  <button class="bnav-item" data-btab="sessions"><span class="bni" data-ico="sessions"></span><span class="bnl">Diary</span></button>
+  <button class="bnav-item" data-btab="skins"><span class="bni" data-ico="skins"></span><span class="bnl">Skins</span></button>
+  <button class="bnav-item" data-btab="more"><span class="bni" data-ico="more"></span><span class="bnl">More</span></button>
+</nav>
+<div id="moreMenu" role="dialog" aria-label="All sections">
+  <div class="more-panel">
+    <div class="more-h">All Sections <button id="moreClose" title="Close">✕</button></div>
+    <div class="more-grid" id="moreGrid"></div>
+  </div>
+</div>
+<button id="toTop" title="Back to top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"><path d="M5.5 15.5 12 9l6.5 6.5"/></svg></button>
 
 <script>
 'use strict';
@@ -1616,6 +1771,152 @@ function drawTabCharts(tab){
   else if(tab==='assistant'){renderAssistant();}
   else if(tab==='leaderboard'){renderLeaderboard();}
   else if(tab==='skins'){renderSkins();}
+  else if(tab==='sessions'){renderSessions();}
+}
+
+// ---------- v1.2: grades / form / road-to / sessions ----------
+let gradeCache=null;
+function compScore(m){return (m.kd*0.62)+(m.acs/240*0.30)+(((m.hsp||0))/100*0.35)+(m.result==='W'?0.12:0);}
+function gradePctOf(m){
+  if(!gradeCache){
+    const pool=DATA.matches.map(x=>({id:x.id,c:compScore(x)}));
+    const vals=pool.map(o=>o.c).sort((a,b)=>a-b);
+    gradeCache={};
+    pool.forEach(o=>{let i=0;while(i<vals.length&&vals[i]<=o.c)i++;gradeCache[o.id]=i/vals.length;});
+  }
+  const p=gradeCache[m.id];return p==null?0.5:p;
+}
+function gradeOf(m){const p=gradePctOf(m);return p>=0.93?'S':p>=0.72?'A':p>=0.44?'B':p>=0.20?'C':'D';}
+function gradeHTML(m){const g=gradeOf(m);return '<span class="mg '+g.toLowerCase()+'" title="Match grade vs your own pool">'+g+'</span>';}
+
+function formInfo(){
+  const ms=DATA.matches||[];
+  let streak=0,type=null;
+  for(const m of ms){if(!type){type=m.result;streak=1;}else if(m.result===type)streak++;else break;}
+  const last5=ms.slice(0,5);
+  return {streak:streak,type:type,last5:last5,lw:last5.filter(m=>m.result==='W').length};
+}
+function formBannerHTML(){
+  const f=formInfo();
+  if(f.streak>=3&&f.type==='W')
+    return '<div class="form-banner hot"><span class="fb-ico">🔥</span><div><b>'+f.streak+' WIN STREAK</b> — you\'re cooking. Lock the same agent &amp; comp and keep the queue rolling.</div></div>';
+  if(f.streak>=3&&f.type==='L')
+    return '<div class="form-banner tilt"><span class="fb-ico">🛑</span><div><b>TILT ALERT — '+f.streak+' STRAIGHT LOSSES.</b> Coach\'s orders: 10-min break, hydrate, one Deathmatch to reset aim, THEN decide if you queue again. Protect the RR.</div></div>';
+  return '';
+}
+function renderFormStrip(){
+  const el=document.getElementById('formStrip');if(!el)return;
+  const f=formInfo();
+  el.innerHTML=formBannerHTML()
+   +'<div class="card form-strip-card"><div class="road-wrap" style="gap:14px;flex-wrap:wrap"><div style="min-width:0">'
+   +'<div class="road-title">Current Form — Last 5</div>'
+   +'<div style="display:flex;align-items:center;gap:12px;margin-top:6px;flex-wrap:wrap">'
+   +'<span class="ses-wl"><span style="color:var(--win)">'+f.lw+'</span><span style="color:var(--muted)"> / </span><span style="color:var(--loss)">'+(5-f.lw)+'</span></span>'
+   +'<span class="form-dots" style="display:inline-flex">'+f.last5.slice().reverse().map(m=>'<span class="fd '+(m.result==='W'?'w':'l')+'" title="'+esc(m.map)+' '+m.us+'-'+m.them+'"></span>').join('')+'</span>'
+   +(f.streak>=2?'<span class="road-alert '+(f.type==='W'?'hot':'guard')+'">'+(f.type==='W'?'🔥 '+f.streak+'W STREAK':'💀 '+f.streak+'L STREAK')+'</span>':'')
+   +'</div></div></div></div>';
+}
+function nextRankOf(rank){const i=RANKS.indexOf(rank);return (i<0?null:(RANKS[i+1]||null));}
+function renderRoadTo(){
+  const el=document.getElementById('roadCard');if(!el)return;
+  const h=(DATA.hist&&DATA.hist.length?DATA.hist:[{rank:profile.rank,rr:0}]);
+  const cur=h[h.length-1];
+  const nxt=nextRankOf(cur.rank);
+  const rr=Math.max(0,Math.min(100,cur.rr||0));
+  if(!nxt){
+    el.innerHTML='<div class="road-wrap"><div class="road-main"><div class="road-title">Peak Reached</div>'
+     +'<div class="road-big">'+esc(cur.rank)+' <small>— TOP OF THE LADDER</small></div>'
+     +'<div class="road-meta">Grind RR for leaderboard placement. Absolute legend territory. 🏆</div></div></div>';
+    return;
+  }
+  const deltas=(DATA.matches||[]).map(m=>m.rrChange).filter(v=>v!=null);
+  const need=100-rr;
+  let est;
+  if(deltas.length>=3){
+    const avg=deltas.reduce((s,v)=>s+v,0)/deltas.length;
+    est=avg>0.5?('≈ '+Math.ceil(need/avg)+' games at your current pace ('+(avg>0?'+':'')+fmt(avg,1)+' avg RR)')
+               :'Win a few to start moving (avg '+fmt(avg,1)+' RR/game across last '+deltas.length+' matches)';
+  }else{
+    est='≈ '+Math.max(1,Math.ceil(need/16))+' wins at a typical +16 RR'+(DATA.live?' — sync more matches for a pace estimate':' (demo estimate)');
+  }
+  const state=rr>=80?{cls:'hot',txt:'🔥 PROMOTION IMMINENT'}:rr<=3?{cls:'guard',txt:'⚠ DEMOTION SHIELD'}:{cls:'chill',txt:'● CLIMBING'};
+  el.innerHTML='<div class="road-wrap">'
+   +'<div class="road-ranks">'
+   +(RANK_ICONS[cur.rank]?'<img class="road-cur" src="'+RANK_ICONS[cur.rank]+'" alt="'+esc(cur.rank)+'" loading="lazy" onerror="this.remove()">':'')
+   +'<span class="road-arrow">⟶</span>'
+   +(RANK_ICONS[nxt]?'<img class="road-nxt" src="'+RANK_ICONS[nxt]+'" alt="'+esc(nxt)+'" loading="lazy" onerror="this.remove()">':'')
+   +'</div>'
+   +'<div class="road-main"><div class="road-title">Road to '+esc(nxt)+'</div>'
+   +'<div class="road-big"><span data-count="'+rr+'" data-dec="0">0</span><small> / 100 RR</small></div>'
+   +'<div class="road-track"><div class="road-fill" id="roadFill"></div></div>'
+   +'<div class="road-meta">'+need+' RR to go · '+est+'</div></div>'
+   +'<div class="road-chip"><span class="road-alert '+state.cls+'">'+state.txt+'</span></div>'
+   +'</div>';
+  setTimeout(()=>{const f=document.getElementById('roadFill');if(f)f.style.width=rr+'%';},100);
+  animateNums(el);
+}
+function dayOfMatch(m){return new Date(Date.now()-(m.hoursAgo||0)*3600e3);}
+function dayLabel(d){
+  const t=new Date();const y=new Date(Date.now()-864e5);
+  if(d.toDateString()===t.toDateString())return 'TODAY';
+  if(d.toDateString()===y.toDateString())return 'YESTERDAY';
+  try{return d.toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'}).toUpperCase();}catch(e){return d.toDateString().toUpperCase();}
+}
+function renderSessions(){
+  const list=document.getElementById('sessionList');if(!list)return;
+  const wc=document.getElementById('weekCard');
+  const ms=DATA.matches||[];
+  if(!ms.length){list.innerHTML='<div class="empty">NO MATCHES SYNCED YET</div>';if(wc)wc.innerHTML='';return;}
+  // week in review
+  if(wc){
+    const wk=ms.filter(m=>(m.hoursAgo||0)<=168);
+    const wkW=wk.filter(m=>m.result==='W').length;
+    const wkK=wk.reduce((s,m)=>s+m.kills,0),wkD=wk.reduce((s,m)=>s+m.deaths,0);
+    const wkRR=wk.reduce((s,m)=>s+(m.rrChange||0),0);
+    wc.innerHTML='<div class="road-wrap"><div class="road-main">'
+     +'<div class="road-title">Week In Review — Last 7 Days</div>'
+     +'<div class="ses-stats" style="margin:8px 0 2px">'
+     +'<span class="ses-stat">'+wk.length+'<small>GAMES</small></span>'
+     +'<span class="ses-stat"><span style="color:var(--win)">'+wkW+'W</span> · <span style="color:var(--loss)">'+(wk.length-wkW)+'L</span><small>RECORD</small></span>'
+     +'<span class="ses-stat">'+fmt(wkK/Math.max(1,wkD),2)+'<small>K/D</small></span>'
+     +(wk.some(m=>m.rrChange!=null)?'<span class="ses-stat" style="color:'+(wkRR>=0?'var(--win)':'var(--loss)')+'">'+(wkRR>0?'+':'')+wkRR+'<small>NET RR</small></span>':'')
+     +'</div></div></div>';
+  }
+  // group by calendar day, newest first
+  const groups=[];let key='';
+  ms.forEach(m=>{
+    const k=dayOfMatch(m).toDateString();
+    if(k!==key){key=k;groups.push({day:dayOfMatch(m),ms:[]});}
+    groups[groups.length-1].ms.push(m);
+  });
+  list.innerHTML=groups.map((g,gi)=>{
+    const W=g.ms.filter(m=>m.result==='W').length;
+    const K=g.ms.reduce((s,m)=>s+m.kills,0),D=g.ms.reduce((s,m)=>s+m.deaths,0);
+    const acs=fmt(g.ms.reduce((s,m)=>s+m.acs,0)/g.ms.length,0);
+    const rr=g.ms.reduce((s,m)=>s+(m.rrChange||0),0);
+    const best=g.ms.slice().sort((a,b)=>compScore(b)-compScore(a))[0];
+    const avgP=g.ms.reduce((s,m)=>s+gradePctOf(m),0)/g.ms.length;
+    const sessG=avgP>=0.93?'S':avgP>=0.72?'A':avgP>=0.44?'B':avgP>=0.20?'C':'D';
+    return '<div class="ses-card">'
+     +'<div class="ses-head"><span class="ses-day">'+dayLabel(g.day)+'</span>'
+     +(gi===0?'<span class="ses-tag">LATEST SESSION</span>':'')
+     +'<span class="ses-games">· '+g.ms.length+' GAME'+(g.ms.length>1?'S':'')+'</span>'
+     +(g.ms.some(m=>m.rrChange!=null)?'<span class="ses-rr" style="color:'+(rr>=0?'var(--win)':'var(--loss)')+'">'+(rr>0?'+':'')+rr+' RR</span>':'')
+     +'</div>'
+     +'<div class="ses-stats">'
+     +'<span class="ses-wl"><span style="color:var(--win)">'+W+'</span><span style="color:var(--muted)"> — </span><span style="color:var(--loss)">'+(g.ms.length-W)+'</span></span>'
+     +'<span class="ses-stat">'+fmt(K/Math.max(1,D),2)+'<small>K/D</small></span>'
+     +'<span class="ses-stat">'+acs+'<small>AVG ACS</small></span>'
+     +'<span class="ses-stat">'+esc(best.map)+'<small>BEST MAP · '+best.kills+'K</small></span>'
+     +'<span class="ses-stat">GRADE <span class="mg '+sessG.toLowerCase()+'" style="margin:2px 0 0 4px;vertical-align:1px">'+sessG+'</span><small>SESSION AVG</small></span>'
+     +'</div>'
+     +'<div class="ses-rows">'+g.ms.map(m=>
+        '<div class="ses-row"><span class="lr-ic">'+agentBadge(m.agent)+'</span>'
+       +'<span class="s-map">'+esc(m.map)+' <span class="s-sub">· '+esc(m.agent)+' · '+m.kills+'/'+m.deaths+'/'+m.assists+'</span></span>'
+       +gradeHTML(m)
+       +'<span class="s-score" style="color:'+(m.result==='W'?'var(--win)':'var(--loss)')+'">'+m.us+'-'+m.them+'</span></div>').join('')
+     +'</div></div>';
+  }).join('');
 }
 
 // ---------- animation helpers ----------
@@ -2085,7 +2386,7 @@ function renderMatches(){
     +'<div class="m-map" style="text-align:left"><b>'+esc(m.map)+(matchMvp?'<span class="mvp-chip">MATCH MVP</span>':(teamMvp?'<span class="mvp-chip team">TEAM MVP</span>':''))+'</b><span class="m-sub">'+esc(m.agent)+' · '+esc(m.mode||'Competitive')+(m.ot?' · OT':'')
     +(m.rrChange!=null?' · <span style="color:'+(m.rrChange>=0?'var(--win)':'var(--loss)')+';font-weight:700">'+(m.rrChange>=0?'+':'')+m.rrChange+' RR</span>':'')
     +'</span><span class="m-mini">'+m.kills+'/'+m.deaths+'/'+m.assists+' · K/D '+fmt(m.kd,2)+' · '+m.hsp+'% HS · ACS '+m.acs+' · '+timeAgo(m.hoursAgo)+'</span></div>'
-    +'<div class="m-score"><span class="'+(w?'w':'l')+'">'+m.us+'</span><span style="color:var(--muted);font-size:13px"> — </span><span class="'+(w?'l':'w')+'">'+m.them+'</span></div>'
+    +'<div class="m-score"><div><span class="'+(w?'w':'l')+'">'+m.us+'</span><span style="color:var(--muted);font-size:13px"> — </span><span class="'+(w?'l':'w')+'">'+m.them+'</span></div>'+gradeHTML(m)+'</div>'
     +'<div class="m-kda">'+m.kills+' / '+m.deaths+' / '+m.assists+'<div class="kd-sub">K/D '+fmt(m.kd,2)+' · '+m.hsp+'% HS</div></div>'
     +'<div class="m-acs">'+m.acs+'</div>'
     +'<div class="m-time">'+timeAgo(m.hoursAgo)+'</div>'
@@ -2314,7 +2615,7 @@ function renderWeapons(){
    APP SHELL / EVENTS
 ===================================================================== */
 const TITLES={overview:'Overview',matches:'Match History',team:'My Team',opponents:'Opponent Intel',
-  agents:'Agent Pool',maps:'Map Pool',weapons:'Weapon Arsenal',skins:'Skins Armory',assistant:'Pre-Match Assistant',leaderboard:'Leaderboard'};
+  agents:'Agent Pool',maps:'Map Pool',weapons:'Weapon Arsenal',skins:'Skins Armory',assistant:'Pre-Match Assistant',leaderboard:'Leaderboard',sessions:'Session Diary'};
 function switchTab(tab){
   currentTab=tab;
   document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
@@ -2325,9 +2626,13 @@ function switchTab(tab){
   requestAnimationFrame(()=>drawTabCharts(tab));
 }
 function renderAll(){
+  gradeCache=null;
   renderOverview();
   matchFilterSelects();
   renderMatches();
+  renderRoadTo();
+  renderFormStrip();
+  renderSessions();
   renderTeam();
   renderOpponents();
   renderAgents();
@@ -2335,7 +2640,7 @@ function renderAll(){
   renderWeapons();
   const fc=document.getElementById('freshChip');
   if(DATA.matches&&DATA.matches.length)fc.textContent='LAST MATCH '+timeAgo(DATA.matches[0].hoursAgo)+' · ';
-  ['ovTiles','ovMini','teamHeroes','oppHeroes','agentsGrid','mapCards','matchList','recentForm','recentMatches','topAgents'].forEach(id=>cascade(document.getElementById(id)));
+  ['ovTiles','ovMini','teamHeroes','oppHeroes','agentsGrid','mapCards','matchList','recentForm','recentMatches','topAgents','roadCard','formStrip','weekCard','sessionList'].forEach(id=>cascade(document.getElementById(id)));
   cascade(document.querySelector('#actHistory .act-row'));
   renderAssistant();
   requestAnimationFrame(()=>{
@@ -2540,6 +2845,88 @@ let rzT;window.addEventListener('resize',()=>{clearTimeout(rzT);rzT=setTimeout((
 setUpdated();
 renderAll();
 (function(){const lc=liveStore.get();if(lc&&lc.key){setupAutoSync();loadLiveData(true);}})();
+
+// ---------- EASY MODE UX wiring (preview pack) ----------
+(function(){
+  try{
+    var P='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="square" stroke-linejoin="miter">';
+    var ICONS={
+      overview:P+'<path d="M3.5 3.5h7.5v7.5H3.5zM13 3.5h7.5v4.5H13zM13 10.5h7.5v10H13zM3.5 13.5h7.5v7H3.5z"/></svg>',
+      matches:P+'<circle cx="12" cy="12" r="6.8"/><path d="M12 2.5v3.6M12 17.9v3.6M2.5 12h3.6M17.9 12h3.6"/><circle cx="12" cy="12" r="1.6" fill="currentColor" stroke="none"/></svg>',
+      team:P+'<circle cx="9" cy="8" r="3.1"/><path d="M3.6 19.8v-1.5c0-3 2.5-4.5 5.4-4.5s5.4 1.5 5.4 4.5v1.6"/><circle cx="16.6" cy="8.9" r="2.4"/><path d="M16.6 14.1c2.4.3 3.8 1.8 3.8 4.1v1.6"/></svg>',
+      opponents:P+'<circle cx="12" cy="12" r="8.3"/><circle cx="12" cy="12" r="4.6"/><path d="M12 12l5.9-5.9"/><circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none"/></svg>',
+      agents:P+'<circle cx="12" cy="7.6" r="3.3"/><path d="M5 20v-1.6c0-3.6 3.1-5.7 7-5.7s7 2.1 7 5.7V20"/></svg>',
+      maps:P+'<path d="M9 4.2 3.5 6.6v13L9 17.2l6 2.4 5.5-2.4v-13L15 6.6z"/><path d="M9 4.2v13M15 6.6v13"/></svg>',
+      weapons:P+'<path d="M3 10.4h10.8V14H3z"/><path d="M13.8 10.4l7.2 1.8-7.2 1.8z"/><path d="M6.2 10.4V14M9.6 10.4V14"/></svg>',
+      skins:P+'<path d="M7 4.5h10l4 4.8-9 11.2L3 9.3z"/><path d="M3 9.3h18"/><path d="M12 20.5 8.8 9.3l3.2-4.8 3.2 4.8z"/></svg>',
+      assistant:P+'<path d="M4 5h16v10.5h-7.2L8.6 19v-3.5H4z"/><path d="M8 10.2h1.8M11.1 10.2h1.8M14.2 10.2H16" stroke-width="2"/></svg>',
+      leaderboard:P+'<path d="M8 4h8v4.6a4 4 0 0 1-8 0z"/><path d="M8 5.2H4.8v1.7A3.4 3.4 0 0 0 8 10.3M16 5.2h3.2v1.7A3.4 3.4 0 0 1 16 10.3"/><path d="M12 12.8v3.8M9 20h6M10.3 16.6h3.4V20h-3.4z"/></svg>',
+      sessions:P+'<path d="M4.5 5.5h15v15h-15z"/><path d="M4.5 9.5h15M8.2 3v3.8M15.8 3v3.8"/><path d="M7.8 13h3.4v3.4H7.8z"/></svg>',
+      more:P+'<path d="M4.5 4.5h6.5v6.5H4.5zM13 4.5h6.5v6.5H13zM4.5 13h6.5v6.5H4.5zM13 13h6.5v6.5H13z"/></svg>'
+    };
+    var coreTabs=['overview','matches','sessions','skins'];
+    // fill static icon slots (bottom nav, jump chips)
+    document.querySelectorAll('[data-ico]').forEach(function(s){
+      var k=s.getAttribute('data-ico');if(ICONS[k])s.innerHTML=ICONS[k];
+    });
+    // icons on desktop/top nav items
+    document.querySelectorAll('.nav-item').forEach(function(b){
+      var t=b.dataset.tab;
+      if(ICONS[t]&&!b.querySelector('.ni-ico'))b.insertAdjacentHTML('afterbegin','<span class="ni-ico">'+ICONS[t]+'</span>');
+    });
+    // build the More-sheet tiles from TITLES
+    var grid=document.getElementById('moreGrid');
+    if(grid){grid.innerHTML=Object.keys(TITLES).map(function(t){
+      return '<button class="more-tile" data-btab="'+t+'"><span class="mt-ico">'+(ICONS[t]||'▸')+'</span><span class="mt-l">'+TITLES[t]+'</span></button>';
+    }).join('');}
+    // highlight sync for bottom nav + more tiles
+    function syncBnav(){
+      var inMore=coreTabs.indexOf(currentTab)<0;
+      document.querySelectorAll('.bnav-item').forEach(function(b){
+        var t=b.dataset.btab;
+        b.classList.toggle('active', t==='more' ? inMore : t===currentTab);
+      });
+      document.querySelectorAll('.more-tile').forEach(function(b){
+        b.classList.toggle('on',b.dataset.btab===currentTab);
+      });
+    }
+    var menu=document.getElementById('moreMenu');
+    function openMore(){if(menu)menu.classList.add('open');}
+    function closeMore(){if(menu)menu.classList.remove('open');}
+    // wrap switchTab so highlights follow every navigation path
+    var _switchTab=switchTab;
+    switchTab=function(t){
+      _switchTab(t);
+      syncBnav();
+      closeMore();
+      try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){}
+    };
+    window.__closeMore=closeMore;
+    // delegated clicks
+    if(document.body&&document.body.addEventListener){
+      document.body.addEventListener('click',function(e){
+        var bn=e.target.closest&&e.target.closest('.bnav-item');
+        if(bn){var t=bn.dataset.btab; if(t==='more'){menu&&menu.classList.contains('open')?closeMore():openMore();} else {switchTab(t);} return;}
+        var mt=e.target.closest&&e.target.closest('.more-tile');
+        if(mt){switchTab(mt.dataset.btab);return;}
+        var mc=e.target.closest&&e.target.closest('#moreClose');
+        if(mc){closeMore();return;}
+        if(menu&&e.target===menu){closeMore();return;}
+        var j=e.target.closest&&e.target.closest('.jump-chip');
+        if(j){switchTab(j.dataset.goto);return;}
+      });
+    }
+    // back to top
+    var ttp=document.getElementById('toTop');
+    if(ttp){
+      window.addEventListener('scroll',function(){
+        try{ttp.classList.toggle('show',(window.scrollY||document.documentElement.scrollTop||0)>420);}catch(e){}
+      },{passive:true});
+      ttp.addEventListener('click',function(){try{window.scrollTo({top:0,behavior:'smooth'});}catch(e){window.scrollTo(0,0);}});
+    }
+    syncBnav();
+  }catch(err){console&&console.warn&&console.warn('easy-mode wiring:',err&&err.message);}
+})();
 </script>
 </body>
 </html>
