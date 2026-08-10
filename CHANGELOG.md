@@ -9,6 +9,7 @@ The climb + glide update. Your dashboard now *coaches* your grind — and gets y
 - 📔 **Session Diary** (new tab 11) — matches grouped by day; per-session W–L, K/D, avg ACS, best map, **session grade**, net RR; **Week In Review** header card
 - 🎓 **Match Grades** — every match graded S/A/B/C/D vs your own pool (percentile composite of K/D, ACS, HS%, win); chips on every match card + diary rows
 - 🌡️ **Tilt Detector / Form Rings** (Matches tab) — last-5 form dots, streak chips, 🔥 win-streak and 🛑 tilt-alert banners with coach advice
+- 🎯 **Enemy Dossiers** (Opponents rebuild) — a full intel card for **every player faced**, not just repeats: real rank + icon, account level, K/D / ACS / HS%, agent, "last met" time & map, your W–L vs them, threat bar, one-glance verdict chip (**DANGER / SMURF? / FARM / EVEN**), summary strip counters, name/rank/agent search + threat filters; smurf radar flags low-level high-K/D accounts
 
 ### ✨ New — Navigation & Icons
 - 📱 **Bottom thumb-nav (mobile)** — Home · Matches · Diary · Skins · More; the scrolling tab strip is gone on phones; bars stay synced with active section

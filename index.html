@@ -555,6 +555,33 @@ footer b{color:var(--muted)}
   .load-equip span{font-size:7.5px}
   .filters input{min-width:140px}
 }
+/* ============ v1.2 OPPONENT INTEL ============ */
+.opp-sum{display:flex;gap:20px;flex-wrap:wrap;margin:2px 0 14px}
+.opp-stat{font-family:var(--mono);font-size:15px;font-weight:700}
+.opp-stat small{display:block;font-size:8.5px;color:var(--muted);font-family:var(--font);letter-spacing:1.2px;font-weight:600}
+.opp-list{display:flex;flex-direction:column;gap:7px}
+.opp-row{display:flex;gap:11px;align-items:center;background:rgba(255,255,255,.02);border:1px solid var(--line);padding:9px 11px;min-width:0}
+.opp-av{width:40px;height:40px;flex-shrink:0;overflow:hidden;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;font-weight:800;color:var(--gold);background:rgba(242,179,99,.06)}
+.opp-av img{width:100%;height:100%;object-fit:cover;display:block}
+.opp-mid{flex:1;min-width:0}
+.opp-name{font-size:12.5px;font-weight:700;letter-spacing:.4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.opp-meta{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:9.5px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.opp-rico{width:15px;height:15px;object-fit:contain;flex-shrink:0}
+.opp-stats{display:flex;gap:13px;margin-top:6px;flex-wrap:wrap}
+.opp-kv{font-family:var(--mono);font-size:12px;font-weight:700}
+.opp-kv span{display:block;font-family:var(--font);font-size:7.5px;color:var(--muted);letter-spacing:1.1px;font-weight:600;margin-top:1px}
+.opp-last{font-size:8px;color:var(--muted);letter-spacing:1.2px;margin-top:6px;font-family:var(--font);font-weight:600}
+.opp-right{flex-shrink:0;text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.ovc{font-size:8px;font-weight:800;letter-spacing:1.2px;padding:3px 8px;border:1px solid;font-family:var(--font);white-space:nowrap}
+.ovc.danger{color:#ff858e;border-color:rgba(255,70,85,.55);background:rgba(255,70,85,.13)}
+.ovc.smurf{color:#c9aaff;border-color:rgba(179,136,255,.5);background:rgba(179,136,255,.12)}
+.ovc.farm{color:#7fe8c4;border-color:rgba(43,217,163,.45);background:rgba(43,217,163,.1)}
+.ovc.even{color:var(--muted);border-color:var(--line)}
+.opp-thr{font-family:var(--mono);font-size:12.5px;font-weight:700;color:#ff858e}
+.opp-thr span{display:block;font-family:var(--font);font-size:7px;color:var(--muted);letter-spacing:1.2px;font-weight:600}
+.opp-row .bar-cell{min-width:64px}
+@media(max-width:640px){.opp-stats{gap:9px}.opp-kv{font-size:11px}.opp-sum{gap:13px}}
+
 /* ============ v1.2 GRADES ============ */
 .mg{display:inline-block;font-family:var(--mono);font-weight:800;font-size:9px;letter-spacing:1.5px;
   padding:1px 7px;margin-top:4px;border:1px solid;line-height:1.5}
@@ -847,11 +874,18 @@ img{max-width:100%}
       <section class="tab-pane" id="tab-opponents">
         <div class="grid g-half" style="margin-bottom:16px" id="oppHeroes"></div>
         <div class="card">
-          <div class="card-h">Known Opponents — Players You Keep Running Into</div>
+          <div class="card-h">Enemy Dossiers — Everyone You've Faced</div>
+          <div class="opp-sum" id="oppSum"></div>
           <div class="filters" style="margin-bottom:12px">
-            <input type="text" id="oppSearch" placeholder="SEARCH OPPONENT…">
+            <input type="text" id="oppSearch" placeholder="SEARCH NAME / RANK / AGENT…">
+            <select id="oppFilter">
+              <option value="all">ALL ENEMIES</option>
+              <option value="hot">THREATS & SMURFS</option>
+              <option value="repeat">REPEAT RIVALS</option>
+              <option value="farm">FARMABLE</option>
+            </select>
           </div>
-          <div class="tbl-wrap"><table class="tbl" id="oppTable"></table></div>
+          <div class="opp-list" id="oppList"></div>
         </div>
       </section>
 
@@ -1150,6 +1184,13 @@ async function apiGet(path,key){
   return body;
 }
 
+// ---------- v1.2: opponent verdicts (smurf/danger/farm read) ----------
+function oppVerdict(kd,acs,lvl){
+  if(lvl&&lvl<50&&(kd>=1.25||acs>=260))return['SMURF?','smurf'];
+  if(kd>=1.15||acs>=235)return['DANGER','danger'];
+  if(kd<0.92&&acs<190)return['FARM','farm'];
+  return['EVEN','even'];
+}
 // Pure adapter: raw API payloads -> dashboard DATA shape (no DOM access)
 function adaptLiveData(cfg,account,mmr,matchRaws,mmrh){
   const myPuuid=account.puuid;
@@ -1270,10 +1311,12 @@ function adaptLiveData(cfg,account,mmr,matchRaws,mmrh){
         if(sameParty)m.party++;
       }else{
         const s=p.stats||{};
-        const o=oppAgg[p.puuid]=oppAgg[p.puuid]||{name:p.name,tag:'#'+(p.tag||'?'),rank:p.currenttier_patched||'Unrated',games:0,wins:0,k:0,d:0,acs:0};
-        o.games++;if(won)o.wins++;o.k+=+s.kills||0;o.d+=Math.max(1,+s.deaths||0);
+        const o=oppAgg[p.puuid]=oppAgg[p.puuid]||{name:p.name,tag:'#'+(p.tag||'?'),rank:p.currenttier_patched||'Unrated',level:p.level||null,tic:0,agt:'',games:0,wins:0,k:0,d:0,a:0,hs:0,bs:0,ls:0,acs:0,lastH:1e9,lastMap:''};
+        if(hoursAgo<o.lastH){o.lastH=hoursAgo;o.lastMap=md.map||'';o.agt=p.character||o.agt;o.rank=p.currenttier_patched||o.rank;if(p.level)o.level=p.level;}
+        o.games++;if(won)o.wins++;o.k+=+s.kills||0;o.d+=Math.max(1,+s.deaths||0);o.a+=+s.assists||0;
+        o.hs+=+s.headshots||0;o.bs+=+s.bodyshots||0;o.ls+=+s.legshots||0;
         o.acs+=Math.round((+s.score||0)/roundsPlayed);
-        o.rank=p.currenttier_patched||o.rank;
+        o.tic=Math.max(o.tic||0,+p.currenttier||0);
       }
     });
 
@@ -1351,12 +1394,17 @@ function adaptLiveData(cfg,account,mmr,matchRaws,mmrh){
     kda:(s.k+s.a)/s.d,acs:s.acs/s.games,combo:s.combo/s.games,party:s.party
   })).sort((a,b)=>(b.party-a.party)||(b.games-a.games));
 
-  const opps=Object.values(oppAgg).filter(s=>s.games>=2).map(s=>{
+  const opps=Object.values(oppAgg).filter(s=>s.games>=1).map(s=>{
     const loseRate=1-s.wins/s.games;
     const theirAcs=s.acs/s.games;
+    const kd=s.k/s.d;
+    const shots=s.hs+s.bs+s.ls;
     const threat=Math.round(clamp(loseRate*62+(theirAcs-190)/110*38,6,99));
-    return {name:s.name,tag:s.tag,rank:s.rank,games:s.games,wins:s.wins,losses:s.games-s.wins,
-      acs:theirAcs,kd:s.k/s.d,threat:threat};
+    const vd=oppVerdict(kd,theirAcs,s.level);
+    return {name:s.name,tag:s.tag,rank:s.rank,level:s.level,agt:s.agt,
+      games:s.games,wins:s.wins,losses:s.games-s.wins,
+      acs:theirAcs,kd:kd,hsp:shots>0?Math.round(s.hs/shots*100):null,
+      lastH:s.lastH===1e9?null:s.lastH,lastMap:s.lastMap,verdict:vd[0],vc:vd[1],threat:threat};
   }).sort((a,b)=>b.threat-a.threat);
 
   const seasonal=(((mmr||{}).seasonal)||[]).slice(0,4).map(s=>({
@@ -1395,7 +1443,7 @@ function generateData(seed){
 
   const mateStats={}, oppStats={};
   TEAM_REGULARS.forEach(m=>mateStats[m.name]={meta:m,games:0,wins:0,kills:0,deaths:0,assists:0,acsSum:0,comboAcsSum:0});
-  OPP_REGULARS.forEach(o=>oppStats[o.name]={meta:o,games:0,wins:0,kills:0,deaths:0,acsSum:0});
+  OPP_REGULARS.forEach(o=>oppStats[o.name]={meta:o,games:0,wins:0,kills:0,deaths:0,acsSum:0,hs:0,agent:'',lastMap:''});
 
   function sbPlayer(name,tag,rank,agent,skill,me){
     const duel=AGENT_ROLES[agent]==='Duelist'?1.07:1;
@@ -1475,6 +1523,7 @@ function generateData(seed){
     teamThem.filter(p=>oppStats[p.name]).forEach(p=>{
       const s=oppStats[p.name];s.games++;if(win)s.wins++; // wins = MY wins vs them
       s.kills+=p.kills;s.deaths+=p.deaths;s.acsSum+=p.acs;
+      s.agent=p.agent;s.hs+=Math.round(p.kills*p.hsp/100);s.lastMap=map;
     });
 
     const myDmg=Math.round(me.kills*R(135,165)+me.assists*R(20,45)+R(0,180));
@@ -1570,9 +1619,14 @@ function generateData(seed){
   const opps=Object.values(oppStats).filter(s=>s.games>0).map(s=>{
     const loseRate=1-s.wins/s.games;
     const theirAcs=s.acsSum/s.games;
+    const kd=s.kills/Math.max(1,s.deaths);
+    const level=Math.round(45+s.meta.skill*150)-((s.meta.name.length*7)%35);
     const threat=Math.round(clamp(loseRate*62+(theirAcs-190)/110*38,6,99));
-    return {name:s.meta.name,tag:s.meta.tag,rank:s.meta.rank,games:s.games,wins:s.wins,
-      losses:s.games-s.wins,acs:theirAcs,kd:s.kills/Math.max(1,s.deaths),threat};
+    const vd=oppVerdict(kd,theirAcs,level);
+    return {name:s.meta.name,tag:s.meta.tag,rank:s.meta.rank,level:level,agt:s.agent||'',
+      games:s.games,wins:s.wins,losses:s.games-s.wins,
+      acs:theirAcs,kd:kd,hsp:s.kills?Math.round((s.hs||0)/s.kills*100):null,
+      lastH:null,lastMap:s.lastMap||'',verdict:vd[0],vc:vd[1],threat:threat};
   }).sort((a,b)=>b.threat-a.threat);
 
   // per-agent-per-map (assistant)
@@ -2463,16 +2517,22 @@ function renderTeamTable(){
 }
 
 // ---------- OPPONENTS ----------
-let oppSort={key:'threat',dir:-1};
+// ---------- v1.2: enemy intel ----------
+let oppVF='all';
 function renderOpponents(){
   const opps=DATA.opps;
   if(!opps.length){
-    document.getElementById('oppHeroes').innerHTML='<div class="card" style="grid-column:1/-1"><div class="empty">NO REPEAT OPPONENTS DETECTED — SYNC MORE MATCHES</div></div>';
-    document.getElementById('oppTable').innerHTML='';
+    document.getElementById('oppHeroes').innerHTML='<div class="card" style="grid-column:1/-1"><div class="empty">NO ENEMY DATA YET — SYNC COMPETITIVE MATCHES FIRST</div></div>';
+    document.getElementById('oppSum').innerHTML='';document.getElementById('oppList').innerHTML='';
     return;
   }
-  const nem=opps.slice().sort((a,b)=>(b.losses/Math.max(1,b.games))-(a.losses/Math.max(1,a.games))||b.threat-a.threat)[0];
-  const farm=opps.slice().sort((a,b)=>(b.wins/Math.max(1,b.games))-(a.wins/Math.max(1,a.games)))[0];
+  const reps=opps.filter(o=>o.games>=2);
+  if(!reps.length){
+    document.getElementById('oppHeroes').innerHTML='<div class="card" style="grid-column:1/-1"><div class="empty">FACE THE SAME ENEMY TWICE AND YOUR NEMESIS / FAVORITE MATCHUP CARDS APPEAR HERE — FULL DOSSIERS BELOW ALREADY TRACK EVERYONE</div></div>';
+    renderOppTable();return;
+  }
+  const nem=reps.slice().sort((a,b)=>(b.losses/Math.max(1,b.games))-(a.losses/Math.max(1,a.games))||b.threat-a.threat)[0];
+  const farm=reps.slice().sort((a,b)=>(b.wins/Math.max(1,b.games))-(a.wins/Math.max(1,a.games)))[0];
   document.getElementById('oppHeroes').innerHTML=
     '<div class="card" style="border-color:rgba(255,89,100,.35)"><div class="card-h" style="--x:1">⚠ Nemesis</div>'
     +'<div class="duo-hero" style="background:rgba(255,89,100,.07);border-color:rgba(255,89,100,.3)">'
@@ -2492,26 +2552,42 @@ function renderOpponents(){
 }
 function renderOppTable(){
   const q=(document.getElementById('oppSearch').value||'').toLowerCase();
-  let rows=DATA.opps.filter(o=>(o.name+o.rank).toLowerCase().includes(q));
-  rows=rows.slice().sort((a,b)=>{
-    const k=oppSort.key;
-    const va=k==='name'?a.name.toLowerCase():a[k], vb=k==='name'?b.name.toLowerCase():b[k];
-    return (va<vb?-1:va>vb?1:0)*oppSort.dir;
-  });
-  const th=(k,lbl)=>'<th class="sortable" data-key="'+k+'">'+lbl+(oppSort.key===k?' <span class="arrow">'+(oppSort.dir<0?'▼':'▲')+'</span>':'')+'</th>';
-  document.getElementById('oppTable').innerHTML='<thead><tr>'
-    +'<th>Player</th><th>Rank</th>'+th('games','Met')+th('wins','Your W')+th('losses','Your L')
-    +th('acs','Their ACS')+th('kd','Their KD')+th('threat','Threat')+'</tr></thead><tbody>'
-    +(rows.length?rows.map(o=>
-      '<tr><td><div class="player-cell"><div class="p-av">'+initials(o.name)+'</div>'
-      +'<div style="font-weight:700;letter-spacing:.6px">'+esc(o.name)+'<span style="color:var(--muted);font-size:10px"> '+esc(o.tag)+'</span></div></div></td>'
-      +'<td>'+rankChip(o.rank)+'</td><td>'+o.games+'</td><td class="pos">'+o.wins+'</td><td class="neg">'+o.losses+'</td>'
-      +'<td>'+fmt(o.acs,0)+'</td><td>'+fmt(o.kd,2)+'</td>'
-      +'<td><div class="bar-cell"><div class="bar-track"><div class="bar-fill red" style="width:'+o.threat+'%"></div></div><span class="bar-lbl">'+o.threat+'</span></div></td></tr>'
-    ).join(''):'<tr><td colspan="8" style="text-align:center;color:var(--muted)">No opponents match search</td></tr>')
-    +'</tbody>';
-  document.querySelectorAll('#oppTable th.sortable').forEach(h=>h.onclick=()=>{
-    const k=h.dataset.key;oppSort.dir=(oppSort.key===k)?-oppSort.dir:-1;oppSort.key=k;renderOppTable();});
+  let rows=DATA.opps.filter(o=>(o.name+' '+o.tag+' '+o.rank+' '+(o.agt||'')).toLowerCase().includes(q));
+  if(oppVF==='hot')rows=rows.filter(o=>o.vc==='danger'||o.vc==='smurf');
+  else if(oppVF==='repeat')rows=rows.filter(o=>o.games>=2);
+  else if(oppVF==='farm')rows=rows.filter(o=>o.vc==='farm');
+  const A=DATA.opps;
+  const nR=A.filter(o=>o.games>=2).length,nD=A.filter(o=>o.vc==='danger').length,
+    nS=A.filter(o=>o.vc==='smurf').length,nF=A.filter(o=>o.vc==='farm').length;
+  const se=document.getElementById('oppSum');
+  if(se)se.innerHTML='<div class="opp-stat">'+A.length+'<small>ENEMIES TRACKED</small></div>'
+    +'<div class="opp-stat" style="color:var(--win)">'+nR+'<small>REPEAT RIVALS</small></div>'
+    +'<div class="opp-stat" style="color:#ff858e">'+nD+'<small>DANGEROUS</small></div>'
+    +'<div class="opp-stat" style="color:#c9aaff">'+nS+'<small>SMURF SUSPECTS</small></div>'
+    +'<div class="opp-stat" style="color:#7fe8c4">'+nF+'<small>FARMABLE</small></div>';
+  const CAP=50,tot=rows.length;rows=rows.slice(0,CAP);
+  document.getElementById('oppList').innerHTML=rows.length?rows.map(o=>{
+    const ric=RANK_ICONS[o.rank];
+    const bits=[];if(o.games>1)bits.push('MET '+o.games+'×');if(o.lastH!=null)bits.push('LAST '+timeAgo(o.lastH).toUpperCase());if(o.lastMap)bits.push(esc(o.lastMap).toUpperCase());
+    return '<div class="opp-row">'
+    +'<div class="opp-av">'+(o.agt?agentBadge(o.agt):initials(o.name))+'</div>'
+    +'<div class="opp-mid">'
+     +'<div class="opp-name">'+esc(o.name)+'<span style="color:var(--muted)"> '+esc(o.tag)+'</span></div>'
+     +'<div class="opp-meta">'+(ric?'<img class="opp-rico" src="'+ric+'" alt="" loading="lazy" onerror="this.remove()">':'')+esc(o.rank)+' · LVL '+(o.level||'?')+(o.agt?' · '+esc(o.agt).toUpperCase():'')+'</div>'
+     +'<div class="opp-stats">'
+      +'<div class="opp-kv">'+fmt(o.kd,2)+'<span>K/D</span></div>'
+      +'<div class="opp-kv">'+fmt(o.acs,0)+'<span>ACS</span></div>'
+      +'<div class="opp-kv">'+(o.hsp!=null?o.hsp+'%':'—')+'<span>HS%</span></div>'
+      +'<div class="opp-kv">'+o.wins+'–'+o.losses+'<span>YOU W–L</span></div>'
+     +'</div>'
+     +(bits.length?'<div class="opp-last">'+bits.join(' · ')+'</div>':'')
+    +'</div>'
+    +'<div class="opp-right"><span class="ovc '+o.vc+'">'+o.verdict+'</span>'
+     +'<div class="opp-thr">'+o.threat+'<span>THREAT</span></div>'
+     +'<div class="bar-cell"><div class="bar-track"><div class="bar-fill red" style="width:'+o.threat+'%"></div></div></div>'
+    +'</div></div>';
+  }).join(''):'<div class="empty">NO ENEMIES MATCH — CLEAR SEARCH / FILTER</div>'
+  +(tot>CAP?'<div class="empty" style="margin-top:8px">SHOWING '+CAP+' OF '+tot+' — USE SEARCH TO NARROW DOWN</div>':'');
 }
 
 // ---------- AGENTS ----------
@@ -2793,6 +2869,7 @@ document.getElementById('matchList').addEventListener('click',e=>{
 ['fltResult','fltMap','fltAgent'].forEach(id=>document.getElementById(id).addEventListener('change',renderMatches));
 document.getElementById('teamSearch').addEventListener('input',renderTeamTable);
 document.getElementById('oppSearch').addEventListener('input',renderOppTable);
+document.getElementById('oppFilter').addEventListener('change',function(){oppVF=this.value||'all';renderOppTable();});
 // refresh — real API sync when connected, otherwise simulate
 document.getElementById('refreshBtn').addEventListener('click',()=>{
   const lc=liveStore.get();
