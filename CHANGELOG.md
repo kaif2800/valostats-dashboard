@@ -1,6 +1,6 @@
 # VALOSTATS — Changelog 🗒️
 
-## 🏷️ v1.2 “MOMENTUM” — 2026-08-09 · 🚧 *still cooking*
+## 🏷️ v1.2 “MOMENTUM” — 2026-08-11
 
 The climb + glide update. Your dashboard now *coaches* your grind — and gets you anywhere in one tap.
 
@@ -23,7 +23,6 @@ The climb + glide update. Your dashboard now *coaches* your grind — and gets y
 - v1.1 folded into this release (its headliner, the Road-to-Bronze tracker, shipped here as Road-To)
 - Desktop sidebar unchanged in behavior (now with SVG icons)
 - Works in simulated + live modes; mobile-responsive; zero new external deps
-- 🚧 **v1.2 is a work in progress** — more features land under this label before it's tagged final
 
 ---
 
